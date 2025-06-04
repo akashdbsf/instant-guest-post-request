@@ -43,13 +43,15 @@ class IGPR_Post_Handler {
         $token       = sanitize_text_field( wp_unslash( $_GET['token'] ) );
         $post_id     = intval( $_GET['post_id'] );
         $stored_hash = get_post_meta( $post_id, '_igpr_action_token', true );
+        $stored_raw  = get_post_meta( $post_id, '_igpr_action_token_plain', true );
 
-        if ( empty( $stored_hash ) || ! wp_check_password( $token, $stored_hash ) ) {
+        if ( empty( $stored_hash ) || empty( $stored_raw ) || $token !== $stored_raw || ! wp_check_password( $token, $stored_hash ) ) {
             wp_die( esc_html__( 'Invalid or expired link.', 'instant-guest-post-request' ) );
         }
 
         // Token is valid, remove it to prevent reuse
         delete_post_meta( $post_id, '_igpr_action_token' );
+        delete_post_meta( $post_id, '_igpr_action_token_plain' );
 
         // Get post ID and action
         $action = sanitize_text_field( wp_unslash( $_GET['igpr_action'] ) );
@@ -175,8 +177,12 @@ class IGPR_Post_Handler {
      * @return array Links array.
      */
     public function generate_action_links( $post_id ) {
-        $token = wp_generate_password( 20, false );
-        update_post_meta( $post_id, '_igpr_action_token', wp_hash_password( $token ) );
+        $token = get_post_meta( $post_id, '_igpr_action_token_plain', true );
+        if ( empty( $token ) ) {
+            $token = wp_generate_password( 20, false );
+            update_post_meta( $post_id, '_igpr_action_token_plain', $token );
+            update_post_meta( $post_id, '_igpr_action_token', wp_hash_password( $token ) );
+        }
 
         $approve_link = add_query_arg(
             array(

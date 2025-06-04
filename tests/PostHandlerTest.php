@@ -15,6 +15,7 @@ class PostHandlerTest extends TestCase {
     }
 
     public function test_generate_action_links() {
+        Functions\when('get_post_meta')->justReturn('');
         Functions\when('wp_generate_password')->justReturn('tok');
         Functions\when('wp_hash_password')->justReturn('hashed');
         Functions\when('update_post_meta')->justReturn(null);
