@@ -13,7 +13,8 @@
     "lint:js": "wp-scripts lint-js",
     "lint:pkg-json": "wp-scripts lint-pkg-json",
     "packages-update": "wp-scripts packages-update",
-    "plugin-zip": "wp-scripts plugin-zip"
+    "plugin-zip": "wp-scripts plugin-zip",
+    "test:e2e": "npm run build && jest"
   },
   "author": "WordPress Developer",
   "license": "GPL-2.0-or-later",
