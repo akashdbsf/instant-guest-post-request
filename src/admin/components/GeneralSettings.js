@@ -1,84 +1,81 @@
 /**
  * General Settings Component
  */
+import { __ } from '@wordpress/i18n';
 import { 
-  Card, 
-  CardHeader, 
-  CardBody, 
-  CardFooter, 
   Button, 
+  ToggleControl, 
+  SelectControl, 
+  RangeControl, 
   Panel, 
   PanelBody, 
-  PanelRow, 
-  SelectControl, 
-  ToggleControl, 
-  RangeControl 
+  PanelRow 
 } from '@wordpress/components';
 
 const GeneralSettings = ({ settings, categories, onChange, onSave, isSaving }) => {
   return (
-    <Card>
-      <CardHeader>
-        <h2>General Settings</h2>
-      </CardHeader>
-      <CardBody>
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+      <div className="border-b border-gray-200 p-4">
+        <h2 className="text-lg font-medium">{__('General Settings', 'instant-guest-post-request')}</h2>
+      </div>
+      <div className="p-4">
         <Panel>
-          <PanelBody title="Post Settings" initialOpen={true}>
+          <PanelBody title={__('Post Settings', 'instant-guest-post-request')} initialOpen={true}>
             <PanelRow>
               <SelectControl
-                label="Default Category"
+                label={__('Default Category', 'instant-guest-post-request')}
                 value={settings.default_category}
                 options={[
-                  { label: 'Select a category', value: '' },
+                  { label: __('Select a category', 'instant-guest-post-request'), value: '' },
                   ...categories
                 ]}
                 onChange={(value) => onChange('default_category', value)}
-                help="Select the default category for guest posts"
+                help={__('Select the default category for guest posts', 'instant-guest-post-request')}
               />
             </PanelRow>
             <PanelRow>
               <ToggleControl
-                label="Enable Moderation"
+                label={__('Enable Moderation', 'instant-guest-post-request')}
                 checked={settings.moderation_enabled}
                 onChange={(value) => onChange('moderation_enabled', value)}
-                help="When enabled, guest posts will be saved as pending for review"
+                help={__('When enabled, guest posts will be saved as pending for review', 'instant-guest-post-request')}
               />
             </PanelRow>
           </PanelBody>
           
-          <PanelBody title="Spam Protection" initialOpen={true}>
+          <PanelBody title={__('Spam Protection', 'instant-guest-post-request')} initialOpen={true}>
             <PanelRow>
               <ToggleControl
-                label="Enable Spam Protection"
+                label={__('Enable Spam Protection', 'instant-guest-post-request')}
                 checked={settings.spam_protection}
                 onChange={(value) => onChange('spam_protection', value)}
-                help="Enable honeypot and IP-based submission limits"
+                help={__('Enable honeypot and IP-based submission limits', 'instant-guest-post-request')}
               />
             </PanelRow>
             <PanelRow>
               <RangeControl
-                label="Submission Limit per IP (24 hours)"
+                label={__('Submission Limit per IP (24 hours)', 'instant-guest-post-request')}
                 value={settings.submission_limit}
                 onChange={(value) => onChange('submission_limit', value)}
                 min={0}
                 max={10}
-                help="Set to 0 for unlimited submissions"
+                help={__('Set to 0 for unlimited submissions', 'instant-guest-post-request')}
               />
             </PanelRow>
           </PanelBody>
         </Panel>
-      </CardBody>
-      <CardFooter>
+      </div>
+      <div className="border-t border-gray-200 p-4 flex justify-end">
         <Button 
           isPrimary 
           onClick={onSave}
           isBusy={isSaving}
           disabled={isSaving}
         >
-          {isSaving ? 'Saving...' : 'Save Settings'}
+          {isSaving ? __('Saving...', 'instant-guest-post-request') : __('Save Settings', 'instant-guest-post-request')}
         </Button>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 };
 

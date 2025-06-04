@@ -2,24 +2,9 @@
  * Main Admin App Component
  */
 import { useState, useEffect } from '@wordpress/element';
-import { 
-  TabPanel, 
-  Button, 
-  ToggleControl, 
-  TextareaControl, 
-  SelectControl, 
-  Spinner, 
-  Notice, 
-  Card, 
-  CardHeader, 
-  CardBody, 
-  CardFooter, 
-  Panel, 
-  PanelBody, 
-  PanelRow, 
-  RangeControl 
-} from '@wordpress/components';
+import { TabPanel, Button, Spinner, Notice } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
+import { __ } from '@wordpress/i18n';
 
 // Import sub-components
 import GeneralSettings from './GeneralSettings';
@@ -135,18 +120,54 @@ const App = () => {
     });
   };
   
+  /**
+   * Handle post approval
+   */
+  const approvePost = async (postId) => {
+    try {
+      await apiFetch({ 
+        path: `igpr/v1/post/${postId}/approve`,
+        method: 'POST'
+      });
+      
+      showNotice(igprData.i18n.approveSuccess, 'success');
+      fetchPendingPosts();
+    } catch (error) {
+      console.error('Error approving post:', error);
+      showNotice(igprData.i18n.actionError, 'error');
+    }
+  };
+  
+  /**
+   * Handle post rejection
+   */
+  const rejectPost = async (postId) => {
+    try {
+      await apiFetch({ 
+        path: `igpr/v1/post/${postId}/reject`,
+        method: 'POST'
+      });
+      
+      showNotice(igprData.i18n.rejectSuccess, 'success');
+      fetchPendingPosts();
+    } catch (error) {
+      console.error('Error rejecting post:', error);
+      showNotice(igprData.i18n.actionError, 'error');
+    }
+  };
+  
   // If still loading, show spinner
   if (isLoading) {
     return (
-      <div className="igpr-loading">
+      <div className="flex flex-col items-center justify-center py-10">
         <Spinner />
-        <p>Loading settings...</p>
+        <p className="mt-4">{__('Loading settings...', 'instant-guest-post-request')}</p>
       </div>
     );
   }
   
   return (
-    <div className="igpr-admin-container">
+    <div className="my-5">
       {notice.show && (
         <Notice status={notice.status} isDismissible={true} onRemove={() => setNotice({ show: false })}>
           {notice.message}
@@ -154,13 +175,13 @@ const App = () => {
       )}
       
       <TabPanel
-        className="igpr-tabs"
-        activeClass="active-tab"
+        className="mb-6"
+        activeClass="border-b-2 border-blue-600 text-blue-600"
         tabs={[
-          { name: 'general', title: 'General Settings' },
-          { name: 'notification', title: 'Notification Settings' },
-          { name: 'form', title: 'Form Style' },
-          { name: 'submissions', title: 'Pending Submissions' }
+          { name: 'general', title: __('General Settings', 'instant-guest-post-request') },
+          { name: 'notification', title: __('Notification Settings', 'instant-guest-post-request') },
+          { name: 'form', title: __('Form Style', 'instant-guest-post-request') },
+          { name: 'submissions', title: __('Pending Submissions', 'instant-guest-post-request') }
         ]}
       >
         {(tab) => {
@@ -204,34 +225,8 @@ const App = () => {
                 posts={pendingPosts}
                 count={pendingCount}
                 onRefresh={fetchPendingPosts}
-                onApprove={async (postId) => {
-                  try {
-                    await apiFetch({ 
-                      path: `igpr/v1/post/${postId}/approve`,
-                      method: 'POST'
-                    });
-                    
-                    showNotice(igprData.i18n.approveSuccess, 'success');
-                    fetchPendingPosts();
-                  } catch (error) {
-                    console.error('Error approving post:', error);
-                    showNotice(igprData.i18n.actionError, 'error');
-                  }
-                }}
-                onReject={async (postId) => {
-                  try {
-                    await apiFetch({ 
-                      path: `igpr/v1/post/${postId}/reject`,
-                      method: 'POST'
-                    });
-                    
-                    showNotice(igprData.i18n.rejectSuccess, 'success');
-                    fetchPendingPosts();
-                  } catch (error) {
-                    console.error('Error rejecting post:', error);
-                    showNotice(igprData.i18n.actionError, 'error');
-                  }
-                }}
+                onApprove={approvePost}
+                onReject={rejectPost}
               />
             );
           }
