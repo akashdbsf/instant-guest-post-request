@@ -19,9 +19,13 @@
   "author": "WordPress Developer",
   "license": "GPL-2.0-or-later",
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
     "@wordpress/scripts": "^26.0.0",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.24",
+    "react-test-renderer": "^18.3.1",
     "tailwindcss": "^3.3.2"
   },
   "dependencies": {

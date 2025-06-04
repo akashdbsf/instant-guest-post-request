@@ -6,4 +6,8 @@
   "autoload": {
     "classmap": ["includes/"]
   }
+  ,
+  "scripts": {
+    "test": "vendor/bin/phpunit -c phpunit.xml"
+  }
 }
