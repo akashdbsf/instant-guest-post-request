@@ -67,12 +67,18 @@ class IGPR_Form_Handler {
             wp_send_json_error( array( 'message' => __( 'Please enter a valid email address.', 'instant-guest-post-request' ) ) );
         }
 
+        // Determine post status based on moderation setting
+        $moderation_enabled = true;
+        if ( isset( $settings['moderation_enabled'] ) ) {
+            $moderation_enabled = (bool) $settings['moderation_enabled'];
+        }
+
         // Prepare post data
         $post_data = array(
-            'post_title' => sanitize_text_field( wp_unslash( $_POST['post_title'] ) ),
+            'post_title'   => sanitize_text_field( wp_unslash( $_POST['post_title'] ) ),
             'post_content' => wp_kses_post( wp_unslash( $_POST['post_content'] ) ),
-            'post_status' => 'pending',
-            'post_type' => 'post',
+            'post_status'  => $moderation_enabled ? 'pending' : 'publish',
+            'post_type'    => 'post',
         );
 
         // Set category if specified in settings
