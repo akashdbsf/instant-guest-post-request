@@ -11,13 +11,15 @@ Instant Guest Post Request is a powerful WordPress plugin that enables website o
 - **Frontend Submission Form**: Clean, responsive form with TailwindCSS styling
 - **No Login Required**: Allow anonymous submissions
 - **Rich Text Editor**: For post content
-- **Featured Image Upload**: Allow users to upload images
+- **Featured Image Upload**: Allow users to upload images with preview
 - **Admin Notifications**: Email alerts with approval/rejection links
+- **Author Notifications**: Email notifications to authors when posts are approved or rejected
 - **Spam Protection**: Honeypot fields and IP-based submission limits
 - **Dashboard Widget**: Quick access to pending submissions
 - **React Admin Interface**: Modern settings page with tabs
 - **Light/Dark Mode**: Form styling options
 - **Fully Accessible**: ARIA attributes and keyboard navigation
+- **Secure Approval Links**: Token-based approval/rejection links that don't expire
 
 ## Installation
 
@@ -69,6 +71,15 @@ The following placeholders can be used in email templates:
 - `{reject_link}` - Link to reject the post
 - `{admin_link}` - Link to edit the post in admin
 
+## Author Notifications
+
+The plugin automatically sends email notifications to authors when their posts are:
+
+1. **Approved**: Includes a link to view their published post
+2. **Rejected**: Provides a polite rejection message
+
+These notifications are sent regardless of how the post is approved or rejected (via email links, admin interface, or React settings page).
+
 ## Requirements
 
 - WordPress 5.8 or higher
@@ -104,6 +115,14 @@ npm run build
 ```
 
 ## Changelog
+
+### 1.1.0
+- Added image preview for featured image uploads
+- Added author notifications when posts are approved or rejected
+- Implemented secure token-based approval/rejection links that don't expire
+- Fixed issue with form display in incognito mode
+- Added border-box sizing to form inputs for better layout consistency
+- Added comprehensive unit tests and E2E tests
 
 ### 1.0.0
 - Initial release

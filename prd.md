@@ -29,6 +29,17 @@ Instant Guest Post Request is a WordPress plugin that allows website visitors to
 4. I want to protect my site from spam submissions
 5. I want to customize the appearance of the submission form
 6. I want to see pending submissions in my dashboard
+7. I want approval links in emails to work reliably without expiring
+
+### As a Guest Author
+
+1. I want to submit a guest post without creating an account
+2. I want to include my author information with my submission
+3. I want to format my post content with a rich text editor
+4. I want to upload an image to accompany my post
+5. I want to receive confirmation that my submission was successful
+6. I want to preview my image before submitting
+7. I want to be notified when my post is approved or rejected
 
 ## Features and Requirements
 
@@ -158,7 +169,10 @@ Instant Guest Post Request is a WordPress plugin that allows website visitors to
 ## Testing Requirements
 
 - Unit tests for core functionality
-- E2E tests for form submission
+  - PHP unit tests for backend functionality
+  - JavaScript unit tests for frontend validation
+- E2E tests for form submission and admin interface
+  - Admin interface tests for approval/rejection
 - Cross-browser testing
 - Mobile responsiveness testing
 - Accessibility testing
