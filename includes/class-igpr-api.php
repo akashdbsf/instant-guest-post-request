@@ -243,6 +243,10 @@ class IGPR_API {
             return new WP_Error( 'update_failed', $result->get_error_message(), array( 'status' => 500 ) );
         }
         
+        // Send notification email to author
+        $email_handler = new IGPR_Email_Handler();
+        $email_handler->send_status_notification( $post_id, 'approved' );
+        
         return rest_ensure_response( array(
             'success' => true,
             'message' => __( 'Post approved and published.', 'instant-guest-post-request' ),
@@ -274,6 +278,10 @@ class IGPR_API {
         if ( ! $result ) {
             return new WP_Error( 'trash_failed', __( 'Failed to reject post.', 'instant-guest-post-request' ), array( 'status' => 500 ) );
         }
+        
+        // Send notification email to author
+        $email_handler = new IGPR_Email_Handler();
+        $email_handler->send_status_notification( $post_id, 'rejected' );
         
         return rest_ensure_response( array(
             'success' => true,

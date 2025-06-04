@@ -70,6 +70,10 @@ class IGPR_Post_Handler {
                 'ID' => $post_id,
                 'post_status' => 'publish',
             ) );
+            
+            // Send notification email to author
+            $email_handler = new IGPR_Email_Handler();
+            $email_handler->send_status_notification( $post_id, 'approved' );
 
             // Redirect to post list
             wp_safe_redirect( admin_url( 'edit.php?igpr_message=approved' ) );
@@ -77,6 +81,10 @@ class IGPR_Post_Handler {
         } elseif ( 'reject' === $action ) {
             // Move post to trash
             wp_trash_post( $post_id );
+            
+            // Send notification email to author
+            $email_handler = new IGPR_Email_Handler();
+            $email_handler->send_status_notification( $post_id, 'rejected' );
 
             // Redirect to post list
             wp_safe_redirect( admin_url( 'edit.php?igpr_message=rejected' ) );

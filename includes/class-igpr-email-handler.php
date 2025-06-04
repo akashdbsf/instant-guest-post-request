@@ -110,6 +110,77 @@ class IGPR_Email_Handler {
     }
 
     /**
+     * Send notification to author when post is approved or rejected.
+     *
+     * @param int    $post_id Post ID.
+     * @param string $status  Status ('approved' or 'rejected').
+     * @return bool Whether the email was sent successfully.
+     */
+    public function send_status_notification( $post_id, $status ) {
+        // Get post data
+        $post = get_post( $post_id );
+        if ( ! $post ) {
+            return false;
+        }
+
+        // Get author data
+        $author_name = get_post_meta( $post_id, '_igpr_author_name', true );
+        $author_email = get_post_meta( $post_id, '_igpr_author_email', true );
+        
+        if ( empty( $author_email ) ) {
+            return false;
+        }
+
+        // Set up email content based on status
+        if ( 'approved' === $status ) {
+            $subject = sprintf( __( 'Your guest post "%s" has been approved!', 'instant-guest-post-request' ), $post->post_title );
+            $message = sprintf( 
+                __( 'Hi %s,
+
+Great news! Your guest post submission "%s" has been approved and published on our site.
+
+You can view your published post here: %s
+
+Thank you for your contribution!
+
+Regards,
+%s', 'instant-guest-post-request' ),
+                $author_name,
+                $post->post_title,
+                get_permalink( $post_id ),
+                get_bloginfo( 'name' )
+            );
+        } else {
+            $subject = sprintf( __( 'Update on your guest post "%s"', 'instant-guest-post-request' ), $post->post_title );
+            $message = sprintf( 
+                __( 'Hi %s,
+
+Thank you for submitting your guest post "%s" to our site.
+
+After careful review, we regret to inform you that we are unable to publish your submission at this time.
+
+We encourage you to review our guidelines and consider submitting again in the future.
+
+Regards,
+%s', 'instant-guest-post-request' ),
+                $author_name,
+                $post->post_title,
+                get_bloginfo( 'name' )
+            );
+        }
+
+        // Format email body as HTML
+        $body = '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">' . nl2br( $message ) . '</div>';
+
+        // Send email
+        add_filter( 'wp_mail_content_type', array( $this, 'set_html_content_type' ) );
+        $result = wp_mail( $author_email, $subject, $body );
+        remove_filter( 'wp_mail_content_type', array( $this, 'set_html_content_type' ) );
+
+        return $result;
+    }
+
+    /**
      * Get default email template.
      *
      * @return string Default email template.
