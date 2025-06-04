@@ -10,6 +10,28 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
   
+  // Handle image preview
+  const imageInput = document.getElementById('featured_image');
+  const imagePreview = document.getElementById('image-preview');
+  const previewImg = document.getElementById('featured-image-preview');
+  
+  if (imageInput && imagePreview && previewImg) {
+    imageInput.addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+          previewImg.src = e.target.result;
+          imagePreview.classList.remove('hidden');
+        };
+        
+        reader.readAsDataURL(this.files[0]);
+      } else {
+        imagePreview.classList.add('hidden');
+      }
+    });
+  }
+  
   // Handle form submission
   form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -83,6 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset TinyMCE if it exists
         if (typeof tinyMCE !== 'undefined' && tinyMCE.get('post_content')) {
           tinyMCE.get('post_content').setContent('');
+        }
+        
+        // Hide image preview
+        const imagePreview = document.getElementById('image-preview');
+        if (imagePreview) {
+          imagePreview.classList.add('hidden');
         }
         
         // Scroll to message

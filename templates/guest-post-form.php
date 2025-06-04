@@ -97,6 +97,9 @@ $button_class = 'light' === $form_style ? 'bg-blue-600 hover:bg-blue-700 text-wh
                 <?php esc_html_e( 'Featured Image', 'instant-guest-post-request' ); ?>
             </label>
             <input type="file" name="featured_image" id="featured_image" accept="image/jpeg,image/png,image/gif" class="block w-full text-sm <?php echo 'dark' === $form_style ? 'text-gray-300' : 'text-gray-900'; ?> file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold <?php echo 'dark' === $form_style ? 'file:bg-gray-700 file:text-white' : 'file:bg-blue-50 file:text-blue-700'; ?> hover:file:bg-blue-100">
+            <div id="image-preview" class="mt-3 hidden">
+                <img id="featured-image-preview" src="#" alt="<?php esc_attr_e( 'Image Preview', 'instant-guest-post-request' ); ?>" class="max-h-40 rounded-lg border <?php echo 'dark' === $form_style ? 'border-gray-600' : 'border-gray-300'; ?>">
+            </div>
             <p class="mt-1 text-sm <?php echo 'dark' === $form_style ? 'text-gray-400' : 'text-gray-500'; ?>">
                 <?php esc_html_e( 'JPG, PNG or GIF (MAX. 2MB)', 'instant-guest-post-request' ); ?>
             </p>
