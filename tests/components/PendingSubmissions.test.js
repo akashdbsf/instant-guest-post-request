@@ -39,8 +39,7 @@ describe('PendingSubmissions component', () => {
         onReject={onReject}
       />
     );
-    // React logs a warning for unknown props used by WordPress components
-    expect(console).toHaveErrored();
+    expect(console).not.toHaveErrored();
     fireEvent.click(screen.getByText(/approve/i));
     fireEvent.click(screen.getByText(/reject/i));
     expect(onApprove).toHaveBeenCalledWith(1);

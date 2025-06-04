@@ -2,7 +2,7 @@
  * Pending Submissions Component
  */
 import { __ } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
+import { Button as ForceButton } from '@bsf/force-ui';
 
 const PendingSubmissions = ({ posts, count, onRefresh, onApprove, onReject }) => {
   return (
@@ -47,28 +47,28 @@ const PendingSubmissions = ({ posts, count, onRefresh, onApprove, onReject }) =>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex space-x-2">
-                        <Button 
-                          isSecondary
-                          isSmall
+                        <ForceButton
+                          variant="secondary"
+                          size="sm"
                           href={post.preview_url}
                           target="_blank"
                         >
                           {__('Preview', 'instant-guest-post-request')}
-                        </Button>
-                        <Button 
-                          isPrimary
-                          isSmall
+                        </ForceButton>
+                        <ForceButton
+                          variant="primary"
+                          size="sm"
                           onClick={() => onApprove(post.id)}
                         >
                           {__('Approve', 'instant-guest-post-request')}
-                        </Button>
-                        <Button 
-                          isDanger
-                          isSmall
+                        </ForceButton>
+                        <ForceButton
+                          variant="danger"
+                          size="sm"
                           onClick={() => onReject(post.id)}
                         >
                           {__('Reject', 'instant-guest-post-request')}
-                        </Button>
+                        </ForceButton>
                       </div>
                     </td>
                   </tr>
@@ -87,12 +87,13 @@ const PendingSubmissions = ({ posts, count, onRefresh, onApprove, onReject }) =>
         )}
       </div>
       <div className="border-t border-gray-200 p-4 flex justify-end">
-        <Button 
-          isSecondary
+        <ForceButton
+          variant="secondary"
+          size="sm"
           onClick={onRefresh}
         >
           {__('Refresh List', 'instant-guest-post-request')}
-        </Button>
+        </ForceButton>
       </div>
     </div>
   );
