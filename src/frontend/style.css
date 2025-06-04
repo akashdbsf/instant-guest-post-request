@@ -1,0 +1,35 @@
+/**
+ * Frontend styles for Instant Guest Post Request plugin.
+ * This will be processed by TailwindCSS.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* WordPress Editor Compatibility */
+.igpr-form-container .wp-editor-container {
+  @apply border border-gray-300;
+}
+
+.igpr-form-container .wp-editor-container textarea {
+  @apply w-full min-h-[200px];
+}
+
+/* Dark mode adjustments for WordPress editor */
+.bg-gray-800 .wp-editor-container {
+  @apply border-gray-600;
+}
+
+/* Accessibility focus styles */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  @apply outline-2 outline-blue-500 outline-offset-2;
+}
+
+/* Screen reader text */
+.sr-only {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+}

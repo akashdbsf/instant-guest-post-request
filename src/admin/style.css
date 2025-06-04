@@ -1,0 +1,146 @@
+/**
+ * Admin styles for Instant Guest Post Request plugin.
+ */
+
+/* Admin Container */
+.igpr-admin-container {
+  margin: 20px 0;
+}
+
+/* Tabs */
+.igpr-tabs .components-tab-panel__tabs {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.igpr-tabs .components-tab-panel__tabs-item {
+  padding: 10px 15px;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.igpr-tabs .components-tab-panel__tabs-item.active-tab {
+  border-bottom: 3px solid #2271b1;
+  color: #2271b1;
+}
+
+/* Loading */
+.igpr-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+/* Form Preview */
+.igpr-form-preview {
+  margin: 20px 0;
+  width: 100%;
+}
+
+.igpr-preview-box {
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.igpr-light-preview {
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.igpr-dark-preview {
+  background-color: #1f2937;
+  color: #fff;
+  border: 1px solid #4b5563;
+}
+
+.igpr-preview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.igpr-preview-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.igpr-preview-field {
+  height: 20px;
+  border-radius: 4px;
+}
+
+.igpr-light-preview .igpr-preview-field {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+}
+
+.igpr-dark-preview .igpr-preview-field {
+  background-color: #374151;
+  border: 1px solid #4b5563;
+}
+
+.igpr-preview-button {
+  width: 120px;
+  height: 30px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.igpr-light-preview .igpr-preview-button {
+  background-color: #2271b1;
+}
+
+.igpr-dark-preview .igpr-preview-button {
+  background-color: #3b82f6;
+}
+
+/* Shortcode Info */
+.igpr-shortcode-info {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f0f0f1;
+  border-left: 4px solid #2271b1;
+}
+
+.igpr-shortcode-info code {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+/* Action Buttons */
+.igpr-action-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+/* Dashboard Widget */
+.igpr-pending-posts {
+  margin: 0;
+  padding: 0;
+}
+
+.igpr-pending-posts li {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f1;
+}
+
+.igpr-pending-posts li:last-child {
+  border-bottom: none;
+}
+
+.igpr-view-all {
+  margin-top: 10px;
+  text-align: right;
+}
