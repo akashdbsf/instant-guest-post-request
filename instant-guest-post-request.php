@@ -176,7 +176,7 @@ class Instant_Guest_Post_Request {
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
                 'nonce' => wp_create_nonce( 'igpr_nonce' ),
                 'i18n' => array(
-                    'submit_success' => __( 'Your guest post has been submitted successfully!', 'instant-guest-post-request' ),
+                    'submit_success' => __( 'Thanks for your submission! We’ll review and get back soon.', 'instant-guest-post-request' ),
                     'submit_error' => __( 'There was an error submitting your post. Please try again.', 'instant-guest-post-request' ),
                 ),
             )
@@ -248,7 +248,8 @@ class Instant_Guest_Post_Request {
         $template .= "A new guest post was submitted by {author_name} ({author_email})\n\n";
         $template .= "Title: {post_title}\n";
         $template .= "Preview: {preview_link}\n";
-        $template .= "➕ Approve: {approve_link} | ❌ Reject: {reject_link}\n\n";
+        $template .= "Approve: {approve_link}\n";
+        $template .= "Reject: {reject_link}\n\n";
         $template .= "Review: {admin_link}";
         
         return $template;

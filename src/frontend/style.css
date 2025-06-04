@@ -7,6 +7,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Input box sizing */
+.igpr-form-container input,
+.igpr-form-container textarea,
+.igpr-form-container select {
+  @apply box-border;
+}
+
 /* WordPress Editor Compatibility */
 .igpr-form-container .wp-editor-container {
   @apply border border-gray-300;

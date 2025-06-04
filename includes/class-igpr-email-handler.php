@@ -115,7 +115,8 @@ class IGPR_Email_Handler {
         $template .= "A new guest post was submitted by {author_name} ({author_email})\n\n";
         $template .= "Title: {post_title}\n";
         $template .= "Preview: {preview_link}\n";
-        $template .= "➕ Approve: {approve_link} | ❌ Reject: {reject_link}\n\n";
+        $template .= "Approve: {approve_link}\n";
+        $template .= "Reject: {reject_link}\n\n";
         $template .= "Review: {admin_link}";
         
         return $template;

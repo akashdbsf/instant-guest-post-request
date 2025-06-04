@@ -117,7 +117,7 @@ class IGPR_Form_Handler {
 
         // Return success
         wp_send_json_success( array( 
-            'message' => __( 'Your guest post has been submitted successfully!', 'instant-guest-post-request' ),
+            'message' => __( 'Thanks for your submission! We’ll review and get back soon.', 'instant-guest-post-request' ),
             'post_id' => $post_id
         ) );
     }
