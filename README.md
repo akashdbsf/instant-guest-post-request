@@ -88,6 +88,21 @@ The plugin includes honeypot fields and IP-based submission limits to prevent sp
 
 Yes, you can choose between light and dark mode for the form. The form uses TailwindCSS for styling and is fully responsive.
 
+## Development Setup
+
+1. Install PHP and Node.js dependencies:
+
+```bash
+npm install
+composer install
+```
+
+2. Build the assets during development:
+
+```bash
+npm run build
+```
+
 ## Changelog
 
 ### 1.0.0

@@ -2,7 +2,7 @@
  * Main Admin App Component
  */
 import { useState, useEffect } from '@wordpress/element';
-import { TabPanel, Button, Spinner, Notice } from '@wordpress/components';
+import { TabPanel, Spinner, Notice } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
 
