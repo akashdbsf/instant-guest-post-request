@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const withTW = require('@bsf/force-ui/withTW');
+
+module.exports = withTW({
   content: [
     './src/**/*.{js,jsx,ts,tsx}',
     './templates/**/*.php',
@@ -14,4 +16,4 @@ module.exports = {
   // Add prefix to all Tailwind classes to avoid conflicts with WordPress
   prefix: '',
   important: true, // Make Tailwind styles take precedence
-}
+});

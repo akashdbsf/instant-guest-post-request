@@ -2,14 +2,14 @@
  * Notification Settings Component
  */
 import { __ } from '@wordpress/i18n';
-import { 
-  Button, 
-  ToggleControl, 
-  TextareaControl, 
-  Panel, 
-  PanelBody, 
-  PanelRow 
+import {
+  ToggleControl,
+  TextareaControl,
+  Panel,
+  PanelBody,
+  PanelRow
 } from '@wordpress/components';
+import { Button as ForceButton } from '@bsf/force-ui';
 
 const NotificationSettings = ({ settings, onChange, onSave, isSaving }) => {
   return (
@@ -45,14 +45,15 @@ const NotificationSettings = ({ settings, onChange, onSave, isSaving }) => {
         </Panel>
       </div>
       <div className="border-t border-gray-200 p-4 flex justify-end">
-        <Button 
-          isPrimary 
+        <ForceButton
+          variant="primary"
+          size="sm"
           onClick={onSave}
-          isBusy={isSaving}
           disabled={isSaving}
+          loading={isSaving}
         >
           {isSaving ? __('Saving...', 'instant-guest-post-request') : __('Save Settings', 'instant-guest-post-request')}
-        </Button>
+        </ForceButton>
       </div>
     </div>
   );
