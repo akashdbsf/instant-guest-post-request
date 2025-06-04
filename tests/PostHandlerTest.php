@@ -15,7 +15,9 @@ class PostHandlerTest extends TestCase {
     }
 
     public function test_generate_action_links() {
-        Functions\when('wp_create_nonce')->justReturn('abc');
+        Functions\when('wp_generate_password')->justReturn('tok');
+        Functions\when('wp_hash_password')->justReturn('hashed');
+        Functions\when('update_post_meta')->justReturn(null);
         Functions\when('admin_url')->justReturn('http://example.com/wp-admin/admin.php');
         Functions\when('add_query_arg')->alias(function($args, $url) {
             return $url . '?' . http_build_query($args);
@@ -26,8 +28,8 @@ class PostHandlerTest extends TestCase {
         $handler = new IGPR_Post_Handler();
         $links = $handler->generate_action_links(10);
 
-        $this->assertSame('http://example.com/wp-admin/admin.php?igpr_action=approve&post_id=10&nonce=abc', $links['approve']);
-        $this->assertSame('http://example.com/wp-admin/admin.php?igpr_action=reject&post_id=10&nonce=abc', $links['reject']);
+        $this->assertSame('http://example.com/wp-admin/admin.php?igpr_action=approve&post_id=10&token=tok', $links['approve']);
+        $this->assertSame('http://example.com/wp-admin/admin.php?igpr_action=reject&post_id=10&token=tok', $links['reject']);
         $this->assertSame('preview-10', $links['preview']);
         $this->assertSame('edit-10', $links['admin']);
     }

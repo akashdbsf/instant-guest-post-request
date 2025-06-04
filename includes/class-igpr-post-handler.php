@@ -35,18 +35,23 @@ class IGPR_Post_Handler {
      */
     public function handle_post_actions() {
         // Check if we have a valid action
-        if ( ! isset( $_GET['igpr_action'] ) || ! isset( $_GET['post_id'] ) || ! isset( $_GET['nonce'] ) ) {
+        if ( ! isset( $_GET['igpr_action'] ) || ! isset( $_GET['post_id'] ) || ! isset( $_GET['token'] ) ) {
             return;
         }
 
-        // Verify nonce
-        $nonce = sanitize_text_field( wp_unslash( $_GET['nonce'] ) );
-        if ( ! wp_verify_nonce( $nonce, 'igpr_post_action' ) ) {
-            wp_die( esc_html__( 'Security check failed.', 'instant-guest-post-request' ) );
+        // Verify token
+        $token       = sanitize_text_field( wp_unslash( $_GET['token'] ) );
+        $post_id     = intval( $_GET['post_id'] );
+        $stored_hash = get_post_meta( $post_id, '_igpr_action_token', true );
+
+        if ( empty( $stored_hash ) || ! wp_check_password( $token, $stored_hash ) ) {
+            wp_die( esc_html__( 'Invalid or expired link.', 'instant-guest-post-request' ) );
         }
 
+        // Token is valid, remove it to prevent reuse
+        delete_post_meta( $post_id, '_igpr_action_token' );
+
         // Get post ID and action
-        $post_id = intval( $_GET['post_id'] );
         $action = sanitize_text_field( wp_unslash( $_GET['igpr_action'] ) );
 
         // Check if post exists and is a guest post
@@ -170,22 +175,23 @@ class IGPR_Post_Handler {
      * @return array Links array.
      */
     public function generate_action_links( $post_id ) {
-        $nonce = wp_create_nonce( 'igpr_post_action' );
-        
+        $token = wp_generate_password( 20, false );
+        update_post_meta( $post_id, '_igpr_action_token', wp_hash_password( $token ) );
+
         $approve_link = add_query_arg(
             array(
                 'igpr_action' => 'approve',
-                'post_id' => $post_id,
-                'nonce' => $nonce,
+                'post_id'     => $post_id,
+                'token'       => $token,
             ),
             admin_url( 'admin.php' )
         );
-        
+
         $reject_link = add_query_arg(
             array(
                 'igpr_action' => 'reject',
-                'post_id' => $post_id,
-                'nonce' => $nonce,
+                'post_id'     => $post_id,
+                'token'       => $token,
             ),
             admin_url( 'admin.php' )
         );
