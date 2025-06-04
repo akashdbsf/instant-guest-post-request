@@ -64,15 +64,19 @@ class IGPR_Email_Handler {
         // Get post handler to generate links
         $post_handler = new IGPR_Post_Handler();
         $links = $post_handler->generate_action_links( $post_id );
-
+        
+        // Get approval handler to generate secure email links
+        $approval_handler = new IGPR_Approval_Handler();
+        $email_links = $approval_handler->generate_email_action_links( $post_id );
+        
         // Replace placeholders in template
         $replacements = array(
             '{post_title}' => $post->post_title,
             '{author_name}' => $author_name,
             '{author_email}' => $author_email,
             '{preview_link}' => '<a href="' . esc_url( $links['preview'] ) . '">' . __( 'Preview Post', 'instant-guest-post-request' ) . '</a>',
-            '{approve_link}' => '<a href="' . esc_url( $links['approve'] ) . '">' . __( 'Approve', 'instant-guest-post-request' ) . '</a>',
-            '{reject_link}' => '<a href="' . esc_url( $links['reject'] ) . '">' . __( 'Reject', 'instant-guest-post-request' ) . '</a>',
+            '{approve_link}' => '<a href="' . esc_url( $email_links['approve'] ) . '">' . __( 'Approve', 'instant-guest-post-request' ) . '</a>',
+            '{reject_link}' => '<a href="' . esc_url( $email_links['reject'] ) . '">' . __( 'Reject', 'instant-guest-post-request' ) . '</a>',
             '{admin_link}' => '<a href="' . esc_url( $links['admin'] ) . '">' . __( 'Edit in Admin', 'instant-guest-post-request' ) . '</a>',
         );
 

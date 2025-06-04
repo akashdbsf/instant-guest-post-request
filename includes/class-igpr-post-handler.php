@@ -35,14 +35,22 @@ class IGPR_Post_Handler {
      */
     public function handle_post_actions() {
         // Check if we have a valid action
-        if ( ! isset( $_GET['igpr_action'] ) || ! isset( $_GET['post_id'] ) || ! isset( $_GET['nonce'] ) ) {
+        if ( ! isset( $_GET['igpr_action'] ) || ! isset( $_GET['post_id'] ) ) {
             return;
         }
 
-        // Verify nonce
-        $nonce = sanitize_text_field( wp_unslash( $_GET['nonce'] ) );
-        if ( ! wp_verify_nonce( $nonce, 'igpr_post_action' ) ) {
-            wp_die( esc_html__( 'Security check failed.', 'instant-guest-post-request' ) );
+        // Check for nonce
+        if ( isset( $_GET['nonce'] ) ) {
+            // Verify nonce
+            $nonce = sanitize_text_field( wp_unslash( $_GET['nonce'] ) );
+            if ( ! wp_verify_nonce( $nonce, 'igpr_post_action' ) ) {
+                wp_die( esc_html__( 'Security check failed.', 'instant-guest-post-request' ) );
+            }
+        } else {
+            // For email links without nonce, verify user is logged in as admin
+            if ( ! current_user_can( 'edit_posts' ) ) {
+                wp_die( esc_html__( 'You do not have permission to perform this action.', 'instant-guest-post-request' ) );
+            }
         }
 
         // Get post ID and action

@@ -70,6 +70,7 @@ class Instant_Guest_Post_Request {
         require_once IGPR_PLUGIN_DIR . 'includes/class-igpr-form-handler.php';
         require_once IGPR_PLUGIN_DIR . 'includes/class-igpr-post-handler.php';
         require_once IGPR_PLUGIN_DIR . 'includes/class-igpr-email-handler.php';
+        require_once IGPR_PLUGIN_DIR . 'includes/class-igpr-approval-handler.php';
         require_once IGPR_PLUGIN_DIR . 'includes/class-igpr-shortcodes.php';
         
         // Admin functionality
@@ -90,6 +91,9 @@ class Instant_Guest_Post_Request {
         
         // Initialize form handler
         new IGPR_Form_Handler();
+        
+        // Initialize approval handler
+        new IGPR_Approval_Handler();
         
         // Initialize API
         new IGPR_API();
