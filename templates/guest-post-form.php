@@ -55,6 +55,13 @@ $button_class = 'light' === $form_style ? 'bg-blue-600 hover:bg-blue-700 text-wh
                 'media_buttons' => false,
                 'teeny'         => true,
                 'quicktags'     => false,
+                'tinymce'       => array(
+                    'setup' => 'function(editor) {
+                        editor.on("change", function() {
+                            editor.save();
+                        });
+                    }',
+                ),
             );
             wp_editor( '', 'post_content', $editor_settings );
             ?>

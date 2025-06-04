@@ -14,6 +14,35 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     
+    // Sync TinyMCE content before submission
+    if (typeof tinyMCE !== 'undefined') {
+      const editor = tinyMCE.get('post_content');
+      if (editor && !editor.isHidden()) {
+        // Update the textarea with the current editor content
+        editor.save();
+      }
+    }
+    
+    // Validate required fields
+    const requiredFields = ['post_title', 'post_content', 'author_name', 'author_email'];
+    let hasError = false;
+    
+    requiredFields.forEach(field => {
+      const input = form.querySelector(`[name="${field}"]`);
+      if (input && !input.value.trim()) {
+        hasError = true;
+        // Show error for this field
+        const errorEl = document.querySelector('.igpr-error');
+        errorEl.textContent = `${field.replace('_', ' ')} is required.`;
+        errorEl.classList.remove('hidden');
+        document.querySelector('.igpr-form-messages').classList.remove('hidden');
+      }
+    });
+    
+    if (hasError) {
+      return;
+    }
+    
     // Show spinner
     document.getElementById('igpr-spinner').classList.remove('hidden');
     document.getElementById('igpr-submit-button').disabled = true;
