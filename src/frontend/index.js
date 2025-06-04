@@ -1,6 +1,7 @@
 /**
  * Frontend entry point for Instant Guest Post Request plugin.
  */
+import './style.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('igpr-guest-post-form');

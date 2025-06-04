@@ -4,7 +4,7 @@
   "description": "WordPress plugin for guest post submissions",
   "main": "index.js",
   "scripts": {
-    "build": "wp-scripts build App.js",
+    "build": "wp-scripts build",
     "start": "wp-scripts start",
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses",

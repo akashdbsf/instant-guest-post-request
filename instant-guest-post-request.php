@@ -74,7 +74,7 @@ class Instant_Guest_Post_Request {
         
         // Admin functionality
         if ( is_admin() ) {
-            require_once IGPR_PLUGIN_DIR . 'admin/class-igpr-admin.php';
+            require_once IGPR_PLUGIN_DIR . 'src/admin/class-igpr-admin.php';
         }
         
         // API functionality
@@ -148,36 +148,20 @@ class Instant_Guest_Post_Request {
      * Enqueue frontend scripts and styles.
      */
     public function enqueue_frontend_assets() {
-        // Enqueue built assets if they exist, otherwise use the default ones
-        if ( file_exists( IGPR_PLUGIN_DIR . 'build/frontend.css' ) ) {
+        // Enqueue built assets if they exist
+        if ( file_exists( IGPR_PLUGIN_DIR . 'build/style-frontend.css' ) ) {
             wp_enqueue_style(
                 'igpr-frontend-css',
-                IGPR_PLUGIN_URL . 'build/frontend.css',
-                array(),
-                IGPR_VERSION
-            );
-        } else {
-            wp_enqueue_style(
-                'igpr-frontend-css',
-                IGPR_PLUGIN_URL . 'assets/css/frontend.css',
+                IGPR_PLUGIN_URL . 'build/style-frontend.css',
                 array(),
                 IGPR_VERSION
             );
         }
         
-        // Enqueue built JS if it exists, otherwise use the default one
         if ( file_exists( IGPR_PLUGIN_DIR . 'build/frontend.js' ) ) {
             wp_enqueue_script(
                 'igpr-frontend-js',
                 IGPR_PLUGIN_URL . 'build/frontend.js',
-                array( 'jquery' ),
-                IGPR_VERSION,
-                true
-            );
-        } else {
-            wp_enqueue_script(
-                'igpr-frontend-js',
-                IGPR_PLUGIN_URL . 'assets/js/frontend.js',
                 array( 'jquery' ),
                 IGPR_VERSION,
                 true
@@ -216,36 +200,20 @@ class Instant_Guest_Post_Request {
         wp_enqueue_script( 'wp-api-fetch' );
         wp_enqueue_style( 'wp-components' );
         
-        // Enqueue built admin assets if they exist, otherwise use the default ones
-        if ( file_exists( IGPR_PLUGIN_DIR . 'build/admin.css' ) ) {
+        // Enqueue built admin assets
+        if ( file_exists( IGPR_PLUGIN_DIR . 'build/style-admin.css' ) ) {
             wp_enqueue_style(
                 'igpr-admin-css',
-                IGPR_PLUGIN_URL . 'build/admin.css',
-                array( 'wp-components' ),
-                IGPR_VERSION
-            );
-        } else {
-            wp_enqueue_style(
-                'igpr-admin-css',
-                IGPR_PLUGIN_URL . 'admin/css/admin.css',
+                IGPR_PLUGIN_URL . 'build/style-admin.css',
                 array( 'wp-components' ),
                 IGPR_VERSION
             );
         }
         
-        // Enqueue built JS if it exists, otherwise use the default one
         if ( file_exists( IGPR_PLUGIN_DIR . 'build/admin.js' ) ) {
             wp_enqueue_script(
                 'igpr-admin-js',
                 IGPR_PLUGIN_URL . 'build/admin.js',
-                array( 'wp-element', 'wp-components', 'wp-api-fetch' ),
-                IGPR_VERSION,
-                true
-            );
-        } else {
-            wp_enqueue_script(
-                'igpr-admin-js',
-                IGPR_PLUGIN_URL . 'admin/js/admin.js',
                 array( 'wp-element', 'wp-components', 'wp-api-fetch' ),
                 IGPR_VERSION,
                 true
